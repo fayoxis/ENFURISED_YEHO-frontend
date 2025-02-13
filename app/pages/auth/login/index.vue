@@ -114,7 +114,7 @@
               <p class="text-gray-700">
                 Vous n'avez pas de compte? 
                 <NuxtLink 
-                  to="/inscription" 
+                  to="/auth/register" 
                   class="text-[#005C53] font-semibold hover:text-[#004a43] transition-all duration-300"
                 >
                   Créer un compte
