@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Dark mode transition */
+html {
+  transition: color-scheme 0.3s ease;
+}
+
+@layer utilities {
+  .dark {
+    @apply bg-dark-background text-dark-text;
+  }
+
+  body {
+    @apply bg-white dark:bg-night-black text-black dark:text-white;
+  }
+}
