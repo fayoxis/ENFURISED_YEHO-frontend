@@ -3,8 +3,7 @@ export default defineNuxtConfig({
   // Define compatibility date and version
   compatibilityDate: "2024-11-29",
 
-  css: ['~/assets/css/tailwind.css'],
-
+  css: ['@fortawesome/fontawesome-free/css/all.css','~/assets/css/tailwind.css'],
 
   future: {
     compatibilityVersion: 4, // Ensures compatibility with Nuxt 4 features

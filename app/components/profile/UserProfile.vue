@@ -64,7 +64,8 @@ import {
   Folder as FolderIcon,
   Wallet as WalletIcon,
   LogOut as LogOutIcon,
-  NewspaperIcon
+  NewspaperIcon,
+  LayoutDashboardIcon
 } from 'lucide-vue-next';
 import MyPropertiesFilter from './my-properties/MyPropertiesFilter.vue';
 
@@ -74,6 +75,11 @@ const userName = ref('Abaze Clovis');
 const userInitials = ref('AC');
 
 const mainMenuItems = [
+{
+    path: 'dashboard',
+    label: 'Dashboard',
+    icon: LayoutDashboardIcon
+  },
   {
     path: 'properties',
     label: 'Propriétés',
