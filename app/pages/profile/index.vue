@@ -101,7 +101,7 @@
 
                 <button v-if="!isCurrentUser" @click="toggleFollow"
                   class="flex items-center px-4 py-2 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105"
-                  :class="user.isFollowing ? 'bg-gray-200 text-gray-800 hover:bg-gray-300' : 'bg-indigo-600 text-white hover:bg-indigo-700'">
+                  :class="user.isFollowing ? 'bg-gray-200 text-gray-800 hover:bg-gray-300' : 'bg-[#F24405]/20 text-white hover:bg-[#F24405]/60'">
                   <svg v-if="!user.isFollowing" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -114,7 +114,7 @@
                 </button>
 
                 <button v-if="!isCurrentUser" @click="showContactModal = true"
-                  class="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+                  class="flex items-center bg-[#D9F9E9] text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -164,6 +164,8 @@
       <div class="mb-8">
         <div class="relative">
           <div class="overflow-x-auto hide-scrollbar">
+            <!-- condition rendering -->
+            <div v-if="isCurrentUser" class="space-y-6" key="profile">
             <nav class="flex space-x-1 md:space-x-4 p-1 md:p-2 bg-white rounded-xl shadow-md">
               <button v-for="tab in getFilteredTabs()" :key="tab.id" @click="setActiveTab(tab.id)" class="tab-button"
                 :class="activeTab === tab.id ? 'active-tab' : 'inactive-tab'">
@@ -171,6 +173,18 @@
                 {{ tab.name }}
               </button>
             </nav>
+            </div>
+            <div v-else class="space-y-6" key="public">
+            <nav class="flex space-x-5 md:space-x-4 p-1 md:p-2 bg-white rounded-xl shadow-md">
+              <button v-for="tab in getFilteredTabs()" :key="tab.id" @click="setActiveTab(tab.id)" class="tab-button"
+                :class="activeTab === tab.id ? 'active-tab' : 'inactive-tab'">
+                <div v-if="tab.accessType ==='public'" class="tab-button" key="public">
+                <span v-html="tab.icon"></span>
+                {{ tab.name }}
+                </div>
+              </button>
+            </nav>
+            </div>
           </div>
           <!-- Active Tab Indicator -->
           <div class="tab-indicator" :style="indicatorStyle"></div>
@@ -227,7 +241,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Social Media</label>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div class="flex items-center border rounded-lg p-2">
-                        <span class="text-blue-600 mr-2">
+                        <span class="text-[#8DAD9D] mr-2">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="currentColor">
                             <path
@@ -238,7 +252,7 @@
                           placeholder="Facebook username" />
                       </div>
                       <div class="flex items-center border rounded-lg p-2">
-                        <span class="text-blue-400 mr-2">
+                        <span class="text-[#8DAD9D] mr-2">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="currentColor">
                             <path
@@ -249,7 +263,7 @@
                           placeholder="Twitter username" />
                       </div>
                       <div class="flex items-center border rounded-lg p-2">
-                        <span class="text-blue-700 mr-2">
+                        <span class="text-[#8DAD9D] mr-2">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="currentColor">
                             <path
@@ -743,7 +757,7 @@
                       <div class="mt-1 flex rounded-md shadow-sm">
                         <input type="email" v-model="settings.email" class="form-input" disabled />
                         <button
-                          class="ml-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
+                          class="ml-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#8DAD9D] hover:bg-[#8DAD9D]/20 hover:text-[#005C53] focus:outline-none">
                           Change
                         </button>
                       </div>
@@ -753,7 +767,7 @@
                       <div class="mt-1 flex rounded-md shadow-sm">
                         <input type="password" value="************" class="form-input" disabled />
                         <button
-                          class="ml-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
+                          class="ml-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#8DAD9D] hover:bg-[#8DAD9D]/20 hover:text-[#005C53] focus:outline-none">
                           Reset
                         </button>
                       </div>
@@ -1150,7 +1164,7 @@ const user = reactive({
   lastName: 'Doe',
   email: 'john.doe@example.com',
   phone: '+1 (555) 123-4567',
-  role: 'Property Owner', // Can be: 'Property Owner', 'Agent', 'Agency', 'User'
+  role: 'Agent', // Can be: 'Property Owner', 'Agent', 'Agency', 'User'
   about: 'Experienced property owner with over 10 years in real estate investment. Specializing in residential properties in urban areas. Passionate about sustainable housing and community development.',
   profilePicture: '', // Will use placeholders and generate avatars
   location: 'San Francisco, CA',
@@ -1571,27 +1585,35 @@ const getFilteredTabs = () => {
     {
       id: 'profile',
       name: 'Profile',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>'
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>',
+      accessType: 'public'
     },
     {
       id: 'properties',
       name: user.role === 'Agent' ? 'Listings' : 'Properties',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>'
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>',
+      accessType: 'public'
     },
     {
       id: 'transactions',
       name: 'Transactions',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>'
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>',
+      accessType: 'private'
+
     },
     {
       id: 'reviews',
       name: 'Reviews',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>'
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>',
+      accessType:'public'
+
     },
     {
       id: 'settings',
       name: 'Settings',
-      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>'
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>',
+      accessType:'private'
+
     }
   ]
 
